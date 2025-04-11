@@ -3,6 +3,7 @@ const { By, Key, until} = require('selenium-webdriver');
 class LoginPage{
     constructor(driver) {
         this.driver = driver;
+        this.firstProduct = By.id('speakersImg');
         this.userIcon = By.id('menuUserLink');
         this.createAccountButton = By.className('create-new-account ng-scope');
         this.usernameField = By.css("[name='usernameRegisterPage']")
@@ -13,21 +14,19 @@ class LoginPage{
         this.errorMessage = By.xpath("(//label[@class='invalid'])[last()]");
     }
 
-    async waitForLoader() {
-        // Wait for the page to load completely
-        await this.driver.wait(async () => {
-            const readyState = await this.driver.executeScript('return document.readyState');
-            return readyState === 'complete';
-        }, 15000, 'Page did not load completely within the timeout');
+    async waitForPageLoad(field) {
+        const element = await this.driver.findElement(field);
+        await this.driver.wait(until.elementIsVisible(element), 10000);
+        await this.driver.wait(until.elementIsEnabled(element), 10000);
     }
 
     async openLoginPopup() {
-        await this.waitForLoader();
+        await this.waitForPageLoad(this.firstProduct);
         await this.clickElement(this.userIcon);
     }
 
     async clickCreateNewAccount() {
-        await this.driver.findElement(this.createAccountButton).click();
+        await this.clickElement(this.createAccountButton);
     }
 
     async focusAndBlurField(field) {
@@ -54,10 +53,9 @@ class LoginPage{
     }
 
     async clickElement(field) {
+        await this.waitForPageLoad(field);
         const element = await this.driver.findElement(field);
-        await this.driver.wait(until.elementIsVisible(element), 10000);
-        await this.driver.wait(until.elementIsEnabled(element), 10000);
-        // await this.driver.executeScript('arguments[0].scrollIntoView(true);', element);
+        await this.driver.executeScript('arguments[0].scrollIntoView(true);', element);
         await element.click();
     }
 }
