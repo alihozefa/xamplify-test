@@ -10,6 +10,7 @@ const LoginPage = require('../pages/LoginPage');
         await driver.get('https://www.advantageonlineshopping.com/');
 
         // Open the login popup
+        await loginPage.waitForLoader();
         await loginPage.openLoginPopup();
 
         // Click 'Create New Account'

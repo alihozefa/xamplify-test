@@ -3,6 +3,7 @@ const { By, Key, until} = require('selenium-webdriver');
 class LoginPage{
     constructor(driver) {
         this.driver = driver;
+        this.loader = By.css('.loader');
         this.userIcon = By.id('menuUserLink');
         this.createAccountButton = By.className('create-new-account ng-scope');
         this.usernameField = By.css("[name='usernameRegisterPage']")
@@ -11,6 +12,14 @@ class LoginPage{
         this.confirmPasswordField = By.css("[name='confirm_passwordRegisterPage']");
         //the explanation of [last()] in the xpath can be found in isErrorMessageCleared() method
         this.errorMessage = By.xpath("(//label[@class='invalid'])[last()]");
+    }
+
+    async waitForLoader() {
+        // Wait for the page to load completely
+        await this.driver.wait(async () => {
+            const readyState = await this.driver.executeScript('return document.readyState');
+            return readyState === 'complete';
+        }, 15000, 'Page did not load completely within the timeout');
     }
 
     async openLoginPopup() {
