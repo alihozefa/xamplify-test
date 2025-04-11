@@ -5,7 +5,7 @@ class LoginPage{
         this.driver = driver;
         this.firstProduct = By.id('speakersImg');
         this.userIcon = By.id('menuUserLink');
-        this.createAccountButton = By.className('create-new-account ng-scope');
+        this.createAccountButton = By.className('create-new-account');
         this.usernameField = By.css("[name='usernameRegisterPage']")
         this.emailField = By.css("[name='emailRegisterPage']");
         this.passwordField = By.css("[name='passwordRegisterPage']");
