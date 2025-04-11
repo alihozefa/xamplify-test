@@ -55,7 +55,6 @@ class LoginPage{
     async clickElement(field) {
         await this.waitForPageLoad(field);
         const element = await this.driver.findElement(field);
-        await this.driver.executeScript('arguments[0].scrollIntoView(true);', element);
         await element.click();
     }
 }
