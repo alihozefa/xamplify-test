@@ -3,7 +3,6 @@ const { By, Key, until} = require('selenium-webdriver');
 class LoginPage{
     constructor(driver) {
         this.driver = driver;
-        this.loader = By.css('.loader');
         this.userIcon = By.id('menuUserLink');
         this.createAccountButton = By.className('create-new-account ng-scope');
         this.usernameField = By.css("[name='usernameRegisterPage']")
@@ -23,7 +22,7 @@ class LoginPage{
     }
 
     async openLoginPopup() {
-        // await this.driver.findElement(this.userIcon).click();
+        await this.waitForLoader();
         await this.clickElement(this.userIcon);
     }
 
@@ -58,7 +57,7 @@ class LoginPage{
         const element = await this.driver.findElement(field);
         await this.driver.wait(until.elementIsVisible(element), 10000);
         await this.driver.wait(until.elementIsEnabled(element), 10000);
-        await this.driver.executeScript('arguments[0].scrollIntoView(true);', element);
+        // await this.driver.executeScript('arguments[0].scrollIntoView(true);', element);
         await element.click();
     }
 }
