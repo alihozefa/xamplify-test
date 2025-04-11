@@ -1,4 +1,4 @@
-const { By, Key } = require('selenium-webdriver');
+const { By, Key, until} = require('selenium-webdriver');
 
 class LoginPage{
     constructor(driver) {
@@ -14,7 +14,8 @@ class LoginPage{
     }
 
     async openLoginPopup() {
-        await this.driver.findElement(this.userIcon).click();
+        // await this.driver.findElement(this.userIcon).click();
+        await this.clickElement(this.userIcon);
     }
 
     async clickCreateNewAccount() {
@@ -42,6 +43,14 @@ class LoginPage{
 
         //ideally elements.length should have been zero but the DOM has hidden error message on 0th position so just to take that into account we are checking if length is 1, which mean no errors displayed
         return elements.length === 1;
+    }
+
+    async clickElement(field) {
+        const element = await this.driver.findElement(field);
+        await this.driver.wait(until.elementIsVisible(element), 10000);
+        await this.driver.wait(until.elementIsEnabled(element), 10000);
+        await this.driver.executeScript('arguments[0].scrollIntoView(true);', element);
+        await element.click();
     }
 }
 

@@ -41,9 +41,13 @@ Follow these steps to set up and run the tests:
    ```bash
    npm install
 
+4. **Run Test:**:
+   Install all required Node.js packages, including selenium-webdriver and chromedriver:
+   ```bash
+   node tests/loginTest.js
+   
 ### Notes
-    
-    Ensure the chromedriver version matches your installed Chrome version. If you encounter version mismatch issues, update chromedriver with:
+   Ensure the chromedriver version matches your installed Chrome version. If you encounter version mismatch issues, update chromedriver with:
     
 ```bash
   npm install chromedriver --save
