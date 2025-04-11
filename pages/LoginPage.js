@@ -14,18 +14,19 @@ class LoginPage{
         this.errorMessage = By.xpath("(//label[@class='invalid'])[last()]");
     }
 
-    async waitForPageLoad(field) {
+    async waitForElementToLoad(field) {
         const element = await this.driver.findElement(field);
         await this.driver.wait(until.elementIsVisible(element), 10000);
         await this.driver.wait(until.elementIsEnabled(element), 10000);
     }
 
     async openLoginPopup() {
-        await this.waitForPageLoad(this.firstProduct);
+        await this.waitForElementToLoad(this.firstProduct);
         await this.clickElement(this.userIcon);
     }
 
     async clickCreateNewAccount() {
+        await this.waitForElementToLoad(this.createAccountButton);
         await this.clickElement(this.createAccountButton);
     }
 
@@ -53,7 +54,7 @@ class LoginPage{
     }
 
     async clickElement(field) {
-        await this.waitForPageLoad(field);
+        await this.waitForElementToLoad(field);
         const element = await this.driver.findElement(field);
         await element.click();
     }
