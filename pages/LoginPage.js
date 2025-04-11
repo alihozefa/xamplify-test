@@ -26,7 +26,7 @@ class LoginPage{
     }
 
     async clickCreateNewAccount() {
-        await this.waitForElementToLoad(this.createAccountButton);
+        await this.waitFor(500);
         await this.clickElement(this.createAccountButton);
     }
 
@@ -57,6 +57,10 @@ class LoginPage{
         await this.waitForElementToLoad(field);
         const element = await this.driver.findElement(field);
         await element.click();
+    }
+
+    async waitFor(milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
 }
 
