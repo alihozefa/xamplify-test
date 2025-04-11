@@ -1,0 +1,13 @@
+{
+  "name": "selenium-js",
+  "version": "1.0.0",
+  "description": "Selenium WebDriver with Page Object Model in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/loginTest.js"
+  },
+  "dependencies": {
+    "chromedriver": "^135.0.1",
+    "selenium-webdriver": "^4.10.0"
+  }
+}
